@@ -1,9 +1,4 @@
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: #f3f3f3;
-}
+
 @mixin row-flex {
   display: flex;
   justify-content: center;
@@ -32,26 +27,4 @@ body {
   font-size: 18px;
   font-weight: 500;
 }
-.table-box-column {
-  width: 50%;
-  height: 100%;
-}
-.table-box-column > div:first-child {
-  @include row-flex;
-  height: 60px;
-  border-bottom: 1px solid #808080;
-}
-.table-box-column > div:last-child {
-  height: 340px;
-  overflow: auto;
-}
-.table > div > :last-child > div {
-  border-left: 1px solid #808080;
-}
-input {
-  border: none;
-}
-input:focus {
-  outline: none !important;
-  border: 2px solid #add2fa;
-}
+

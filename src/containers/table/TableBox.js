@@ -1,42 +1,47 @@
 import React from "react"
-import InputField from "./InputField"
+import "./TableBox.scss"
+import InputField from "../../components/inputField/InputField"
 
-function TableBox(props) {
-  const drop = (ev, cat) => {
+function TableBox({header, inputArr, setInputArr}) {
+  const handleInputChange = (index) => {
+    console.log(inputArr.length)
+    if (index === inputArr.length - 1 && index + 1 !== "") {
+      setInputArr([...inputArr, ""])
+    }
+  }
+  const drop = (ev) => {
     ev.preventDefault()
-    let id = ev.dataTransfer.getData("text")
-    props.inputArr.filter((val, index, arr) => {
-      if (arr[index] === id) {
-        cat = arr[index]
-      }
-      return cat
-    })
-    console.log(props.inputArr)
-    props.setInputArr([...props.inputArr, cat])
+    let value = ev.dataTransfer.getData("text")
+    setInputArr([...inputArr, value])
   }
   const allowDrop = (event) => {
     event.preventDefault()
   }
+  const dragStart = (event) => {
+    event.dataTransfer.setData("text", event.target.value)
+  }
 
+  const dragEnd = (ev) => {
+    const newInputArr = inputArr.filter((val) => val !== ev.target.value)
+    console.log(ev.target.value)
+    setInputArr(newInputArr)
+  }
   return (
     <div className="table-box-column">
       <div className="row-flex">
-        <p>{props.header}</p>
+        <p>{header}</p>
       </div>
-      <div>
+      <div onDrop={drop} onDragOver={allowDrop}>
         <ol>
-          {props.inputArr.map((val, index) => {
+          {inputArr.map((val, index) => {
             return (
-              <li
-                onDrop={(e) => drop(e, val)}
-                onDragOver={allowDrop}
-                key={`${props.header} + ${index}`}
-              >
+              <li key={`${header} + ${index}`}>
                 <InputField
-                  value={val}
-                  index={index}
-                  inputArr={props.inputArr}
-                  setInputArr={props.setInputArr}
+                  inputVal={val}
+                  onChange={() => handleInputChange(index)}
+                  inputArr={inputArr}
+                  onDragEnd={dragEnd}
+                  onDragStart={dragStart}
                 />
               </li>
             )

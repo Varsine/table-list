@@ -1,0 +1,7 @@
+input {
+  border: none;
+}
+input:focus {
+  outline: none !important;
+  border: 2px solid #add2fa;
+}

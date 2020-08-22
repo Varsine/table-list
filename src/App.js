@@ -1,11 +1,11 @@
 import React, {useState} from "react"
-// import "./App.css"
+import "./App.scss"
 import Table from "./components/tabel/Table"
 import {MyContext} from "./Context"
 
 export default function App() {
-  const [pros, setPros] = useState(["hello", "by"])
-  const [cons, setCons] = useState(["jeep", "honday", "Saab", "Volvo", "BMW"])
+  const [pros, setPros] = useState(["hello", "by", ""])
+  const [cons, setCons] = useState(["honday", "Saab", "Volvo", "BMW", ""])
 
   return (
     <div>

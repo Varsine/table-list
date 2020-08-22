@@ -1,0 +1,21 @@
+@mixin row-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table-box-column {
+  width: 50%;
+  height: 100%;
+}
+.table-box-column > div:first-child {
+  @include row-flex;
+  height: 60px;
+  border-bottom: 1px solid #808080;
+}
+.table-box-column > div:last-child {
+  height: 340px;
+  overflow: auto;
+}
+.table > div > :last-child > div {
+  border-left: 1px solid #808080;
+}
