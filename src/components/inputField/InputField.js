@@ -4,16 +4,16 @@ import "./InputField.scss"
 
 const InputField = ({
   inputVal,
-  inputName,
   onDragEnd,
   onDragStart,
   onChange,
+  onBlur,
 }) => {
   return (
     <input
       type="text"
       defaultValue={inputVal}
-      name={inputName}
+      onBlur={onBlur}
       onChange={onChange}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}

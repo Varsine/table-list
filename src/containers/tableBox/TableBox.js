@@ -5,13 +5,16 @@ import InputField from "../../components/inputField/InputField"
 import "./TableBox.scss"
 
 const TableBox = ({header, inputArr, setInputArr}) => {
-  const copyInputArr = inputArr
-  const handleInputChange = (event, index) => {
-    copyInputArr[index][event.target.name] = event.target.value
-    setInputArr(copyInputArr)
+  const copyInputArr = [...inputArr]
+  const handleInputChange = (index) => {
     if (index === copyInputArr.length - 1 && index + 1 !== "") {
       setInputArr([...copyInputArr, ""])
     }
+  }
+  const inputBlur = (event, index) => {
+    const value = event.target.value
+    copyInputArr[index] = value
+    setInputArr([...copyInputArr])
   }
   const drop = (ev) => {
     ev.preventDefault()
@@ -27,7 +30,6 @@ const TableBox = ({header, inputArr, setInputArr}) => {
 
   const dragEnd = (ev) => {
     const filterInputArr = copyInputArr.filter((val) => val !== ev.target.value)
-    console.log(filterInputArr)
     setInputArr(filterInputArr)
   }
   return (
@@ -41,12 +43,12 @@ const TableBox = ({header, inputArr, setInputArr}) => {
             return (
               <li key={`${header}-${val}-${index}`}>
                 <InputField
-                  inputName={val}
                   inputVal={val}
-                  onChange={(event) => handleInputChange(event, index)}
+                  onChange={() => handleInputChange(index)}
                   inputArr={inputArr}
                   onDragEnd={dragEnd}
                   onDragStart={dragStart}
+                  onBlur={(event) => inputBlur(event, index)}
                 />
               </li>
             )
