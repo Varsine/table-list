@@ -1,18 +1,22 @@
 import React from "react"
-import "./TableBox.scss"
+
 import InputField from "../../components/inputField/InputField"
 
-function TableBox({header, inputArr, setInputArr}) {
-  const handleInputChange = (index) => {
-    console.log(inputArr.length)
-    if (index === inputArr.length - 1 && index + 1 !== "") {
-      setInputArr([...inputArr, ""])
+import "./TableBox.scss"
+
+const TableBox = ({header, inputArr, setInputArr}) => {
+  const copyInputArr = inputArr
+  const handleInputChange = (event, index) => {
+    copyInputArr[index][event.target.name] = event.target.value
+    setInputArr(copyInputArr)
+    if (index === copyInputArr.length - 1 && index + 1 !== "") {
+      setInputArr([...copyInputArr, ""])
     }
   }
   const drop = (ev) => {
     ev.preventDefault()
     let value = ev.dataTransfer.getData("text")
-    setInputArr([...inputArr, value])
+    setInputArr([...copyInputArr, value])
   }
   const allowDrop = (event) => {
     event.preventDefault()
@@ -22,9 +26,9 @@ function TableBox({header, inputArr, setInputArr}) {
   }
 
   const dragEnd = (ev) => {
-    const newInputArr = inputArr.filter((val) => val !== ev.target.value)
-    console.log(ev.target.value)
-    setInputArr(newInputArr)
+    const filterInputArr = copyInputArr.filter((val) => val !== ev.target.value)
+    console.log(filterInputArr)
+    setInputArr(filterInputArr)
   }
   return (
     <div className="table-box-column">
@@ -33,12 +37,14 @@ function TableBox({header, inputArr, setInputArr}) {
       </div>
       <div onDrop={drop} onDragOver={allowDrop}>
         <ol>
-          {inputArr.map((val, index) => {
+          {copyInputArr.map((val, index) => {
             return (
-              <li key={`${header} + ${index}`}>
+              <li key={`${header}-${val}-${index}`}>
                 <InputField
+                  inputname={val}
                   inputVal={val}
-                  onChange={() => handleInputChange(index)}
+                  inputRef={inputRef}
+                  onChange={(event) => handleInputChange(event, index)}
                   inputArr={inputArr}
                   onDragEnd={dragEnd}
                   onDragStart={dragStart}

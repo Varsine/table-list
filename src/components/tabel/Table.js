@@ -1,9 +1,11 @@
 import React, {useContext} from "react"
+
 import {MyContext} from "../../Context"
-import TableBox from "../../containers/table/TableBox"
+import TableBox from "../../containers/tableBox/TableBox"
+
 import "./Table.scss"
 
-export default function Table() {
+const Table = () => {
   const {pros, setPros, cons, setCons} = useContext(MyContext)
 
   return (
@@ -17,3 +19,4 @@ export default function Table() {
     </div>
   )
 }
+export default Table
