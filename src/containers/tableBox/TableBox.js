@@ -41,9 +41,8 @@ const TableBox = ({header, inputArr, setInputArr}) => {
             return (
               <li key={`${header}-${val}-${index}`}>
                 <InputField
-                  inputname={val}
+                  inputName={val}
                   inputVal={val}
-                  inputRef={inputRef}
                   onChange={(event) => handleInputChange(event, index)}
                   inputArr={inputArr}
                   onDragEnd={dragEnd}
