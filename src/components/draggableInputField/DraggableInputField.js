@@ -2,24 +2,29 @@ import React from "react"
 
 import "./InputField.scss"
 
-const InputField = ({
+const DraggableInputField = ({
   inputVal,
   onDragEnd,
   onDragStart,
   onChange,
   onBlur,
+  inpRef,
+  onKeyPress,
+  draggable,
 }) => {
   return (
     <input
       type="text"
+      ref={inpRef}
+      onKeyPress={onKeyPress}
       defaultValue={inputVal}
       onBlur={onBlur}
       onChange={onChange}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
-      draggable="true"
+      draggable={draggable}
     />
   )
 }
 
-export default InputField
+export default DraggableInputField
