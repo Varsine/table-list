@@ -1,6 +1,6 @@
 import React from "react"
 
-import "./InputField.scss"
+import "./DraggableInputField.scss"
 
 const DraggableInputField = ({
   inputVal,
@@ -8,14 +8,12 @@ const DraggableInputField = ({
   onDragStart,
   onChange,
   onBlur,
-  inpRef,
   onKeyPress,
   draggable,
 }) => {
   return (
     <input
       type="text"
-      ref={inpRef}
       onKeyPress={onKeyPress}
       defaultValue={inputVal}
       onBlur={onBlur}

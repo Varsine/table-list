@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from "react"
+import React, {useState, useRef} from "react"
 
 import DraggableInputField from "../../components/draggableInputField/DraggableInputField"
 
@@ -6,8 +6,7 @@ import "./TableBox.scss"
 
 const TableBox = ({header, inputArr, setInputArr}) => {
   const [dragStatus, setDragStatus] = useState(true)
-  const listRef = useRef()
-  const inpRef = useRef()
+  const olElementRef = useRef()
 
   const handleInputChange = (index) => {
     if (index === inputArr.length - 1 && index + 1 !== "") {
@@ -19,6 +18,12 @@ const TableBox = ({header, inputArr, setInputArr}) => {
     const value = event.target.value
     copyInputArr[index] = value
     setInputArr([...copyInputArr])
+    if (event.target.value === "") {
+      const newInputArr = copyInputArr.filter(
+        (val) => val !== event.target.value
+      )
+      setInputArr([...newInputArr, ""])
+    }
   }
   const drop = (ev) => {
     ev.preventDefault()
@@ -35,9 +40,12 @@ const TableBox = ({header, inputArr, setInputArr}) => {
     event.preventDefault()
   }
   const dragStart = (event) => {
+    event.target.classList.add("input-drop")
+
     if (event.target.value === "") {
       setDragStatus(false)
     } else {
+      setDragStatus(true)
       event.dataTransfer.setData("text", event.target.value)
     }
   }
@@ -50,14 +58,8 @@ const TableBox = ({header, inputArr, setInputArr}) => {
   }
 
   const handleKeyPress = (e) => {
-    console.log(listRef.current.childNodes)
-    const nodelist = listRef.current.childNodes
     if (e.key === "Enter") {
-      e.preventDefault()
-      for (let i of nodelist)
-        if (i.current.focus()) {
-          return i.nextSibling.focus()
-        }
+      olElementRef.current.lastChild.firstChild.focus()
     }
   }
 
@@ -67,14 +69,13 @@ const TableBox = ({header, inputArr, setInputArr}) => {
         <p>{header}</p>
       </div>
       <div onDrop={drop} onDragOver={allowDrop}>
-        <ol ref={listRef}>
+        <ol ref={olElementRef}>
           {inputArr.map((val, index) => {
             return (
               <li key={`${header}-${val}-${index}`}>
                 <DraggableInputField
                   draggable={dragStatus}
                   inputVal={val}
-                  inpRef={inpRef}
                   onChange={() => handleInputChange(index)}
                   inputArr={inputArr}
                   onDragEnd={dragEnd}
