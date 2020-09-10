@@ -1,5 +1,17 @@
 input {
-  border: none;
+  border-left-color: #851e3e;
+  border-top-color: #851e3e;
+  border-bottom: none;
+  border-right: none;
+  margin: 2% 1%;
+  font-size: 18px;
+  padding: 2%;
+  color: rgb(32, 27, 54);
+  font-weight: 600;
+  opacity: 0.6;
+}
+input:hover{
+  opacity: 1;
 }
 input:focus {
   outline: none !important;

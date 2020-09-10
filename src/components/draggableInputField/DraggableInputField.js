@@ -9,10 +9,12 @@ const DraggableInputField = ({
   onChange,
   onBlur,
   onKeyPress,
+  name
 }) => {
   return (
     <input
       type="text"
+      id={name}
       onKeyPress={onKeyPress}
       defaultValue={inputVal}
       onBlur={onBlur}

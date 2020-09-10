@@ -45,7 +45,7 @@ const TableBox = ({header, inputArr, setInputArr}) => {
   const dragEnd = (ev) => {
     if (ev.target.value !== "") {
       const filterInputArr = inputArr.filter((val) => val !== ev.target.value)
-      setInputArr(filterInputArr)
+      setInputArr([...filterInputArr])
     }
   }
 
@@ -67,6 +67,7 @@ const TableBox = ({header, inputArr, setInputArr}) => {
               <li key={`${header}-${val}-${index}`}>
                 <DraggableInputField
                   inputVal={val}
+                  name={`${header}-${val}-${index}`}
                   onChange={() => handleInputChange(index)}
                   inputArr={inputArr}
                   onDragEnd={dragEnd}
