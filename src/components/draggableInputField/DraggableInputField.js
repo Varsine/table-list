@@ -9,7 +9,6 @@ const DraggableInputField = ({
   onChange,
   onBlur,
   onKeyPress,
-  draggable,
 }) => {
   return (
     <input
@@ -20,7 +19,7 @@ const DraggableInputField = ({
       onChange={onChange}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
-      draggable={draggable}
+      draggable={true}
     />
   )
 }

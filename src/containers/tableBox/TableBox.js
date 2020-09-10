@@ -1,11 +1,10 @@
-import React, {useState, useRef} from "react"
+import React, {useRef} from "react"
 
 import DraggableInputField from "../../components/draggableInputField/DraggableInputField"
 
 import "./TableBox.scss"
 
 const TableBox = ({header, inputArr, setInputArr}) => {
-  const [dragStatus, setDragStatus] = useState(true)
   const olElementRef = useRef()
 
   const handleInputChange = (index) => {
@@ -28,9 +27,7 @@ const TableBox = ({header, inputArr, setInputArr}) => {
   const drop = (ev) => {
     ev.preventDefault()
     const value = ev.dataTransfer.getData("text")
-    if (value === "") {
-      setDragStatus(false)
-    } else {
+    if (value !== "") {
       const copyInputArr = [...inputArr]
       const newInputArr = copyInputArr.filter((val) => val !== "")
       setInputArr([...newInputArr, value, ""])
@@ -40,16 +37,11 @@ const TableBox = ({header, inputArr, setInputArr}) => {
     event.preventDefault()
   }
   const dragStart = (event) => {
-    event.target.classList.add("input-drop")
-
-    if (event.target.value === "") {
-      setDragStatus(false)
-    } else {
-      setDragStatus(true)
+    event.target.classList.toggle("input-drop")
+    if (event.target.value !== "") {
       event.dataTransfer.setData("text", event.target.value)
     }
   }
-
   const dragEnd = (ev) => {
     if (ev.target.value !== "") {
       const filterInputArr = inputArr.filter((val) => val !== ev.target.value)
@@ -69,12 +61,11 @@ const TableBox = ({header, inputArr, setInputArr}) => {
         <p>{header}</p>
       </div>
       <div onDrop={drop} onDragOver={allowDrop}>
-        <ol ref={olElementRef}>
+        <ol ref={olElementRef} data-draggable="target">
           {inputArr.map((val, index) => {
             return (
               <li key={`${header}-${val}-${index}`}>
                 <DraggableInputField
-                  draggable={dragStatus}
                   inputVal={val}
                   onChange={() => handleInputChange(index)}
                   inputArr={inputArr}
