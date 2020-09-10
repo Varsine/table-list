@@ -2,5 +2,14 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #f3f3f3;
+  background-image: url("./images/images.png");
+}
+::-webkit-scrollbar{
+  width: 20px;
+}
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(#851e3e, #651e3e, #451e3e);
+    border: 12px none #ffffff;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
 }
