@@ -42,9 +42,14 @@ const TableBox = ({header, inputArr, setInputArr}) => {
       event.dataTransfer.setData("text", event.target.value)
     }
   }
+
   const dragEnd = (ev) => {
+    const eventIndex = (index) => index == ev.target.value
+
     if (ev.target.value !== "") {
-      const filterInputArr = inputArr.filter((val) => val !== ev.target.value)
+      const filterInputArr = inputArr.filter(
+        (val, index) => index !== inputArr.findIndex(eventIndex)
+      )
       setInputArr([...filterInputArr])
     }
   }
