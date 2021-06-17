@@ -1,4 +1,5 @@
 import React, {useRef} from "react"
+import PropTypes from 'prop-types'
 
 import DraggableInputField from "../../components/draggableInputField/DraggableInputField"
 
@@ -44,7 +45,7 @@ const TableBox = ({header, inputArr, setInputArr}) => {
   }
 
   const dragEnd = (ev) => {
-    const eventIndex = (index) => index == ev.target.value
+    const eventIndex = (index) => index === ev.target.value
 
     if (ev.target.value !== "") {
       const filterInputArr = inputArr.filter(
@@ -87,6 +88,11 @@ const TableBox = ({header, inputArr, setInputArr}) => {
       </div>
     </div>
   )
+}
+
+
+TableBox.propTypes = {
+
 }
 
 export default TableBox

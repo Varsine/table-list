@@ -9,6 +9,8 @@ input {
   color: rgb(32, 27, 54);
   font-weight: 600;
   opacity: 0.6;
+  user-select: none;
+  cursor: pointer;
 }
 input:hover{
   opacity: 1;
